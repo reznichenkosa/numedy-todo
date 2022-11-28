@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type Todo = {
+export type Todo = {
   id: string;
   title: string;
   description: string;
@@ -15,7 +15,27 @@ type TodoState = {
 };
 
 const initialState: TodoState = {
-  entities: [],
+  entities: [
+    {
+      id: "1",
+      title: "Первая задача",
+      description:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates autem aperiam commodi animi vitae sequi minima sed recusandae quidem ad! Dolor assumenda tempore vero molestias. Vel aspernatur vero exercitationem laudantium!",
+      isCompleted: false,
+      isDeleted: false,
+      createdAt: new Date().toISOString(),
+      deadlineAt: new Date().toISOString(),
+    },
+    {
+      id: "2",
+      title: "Вторая задача",
+      description: "Описание второй задачи",
+      isCompleted: true,
+      isDeleted: false,
+      createdAt: new Date().toISOString(),
+      deadlineAt: new Date().toISOString(),
+    },
+  ],
 };
 
 const todoSlice = createSlice({
@@ -31,8 +51,11 @@ const todoSlice = createSlice({
         toggledTodo.isCompleted = !toggledTodo.isCompleted;
       }
     },
-    removeTodo(state, action: PayloadAction<Todo>) {
+    removeTodoFromBin(state, action: PayloadAction<Todo>) {
       state.entities = state.entities.filter((todo) => todo.id !== action.payload.id);
+    },
+    removeAllTodosFromBin(state) {
+      state.entities = state.entities.filter((todo) => !todo.isDeleted);
     },
     updateTodo(state, action: PayloadAction<Todo>) {
       state.entities = state.entities.map((todo) => {
@@ -57,5 +80,13 @@ const todoSlice = createSlice({
   },
 });
 
-export const { addTodo, toggleComplete, removeTodo, updateTodo } = todoSlice.actions;
+export const {
+  addTodo,
+  toggleComplete,
+  removeTodoFromBin,
+  updateTodo,
+  sendToBin,
+  restoreFromBin,
+  removeAllTodosFromBin,
+} = todoSlice.actions;
 export default todoSlice.reducer;

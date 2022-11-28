@@ -1,0 +1,7 @@
+
+.custom-checkbox:checked {
+  @apply shadow-sm shadow-purple-500
+}
+.custom-checkbox:checked ~ .check {
+  @apply opacity-100;
+}

@@ -20,11 +20,13 @@ export enum FilterParam {
 type FilterState = {
   filter: FilterParam;
   sort: SortParam;
+  searchQuery: string;
 };
 
 const initialState: FilterState = {
   filter: FilterParam.ShowAll,
   sort: SortParam.SortByCreatedAtDesc,
+  searchQuery: "",
 };
 
 const filterSlice = createSlice({
@@ -37,8 +39,11 @@ const filterSlice = createSlice({
     setFilterParam(state, action: PayloadAction<FilterParam>) {
       state.filter = action.payload;
     },
+    setSearchQuery(state, action: PayloadAction<string>) {
+      state.searchQuery = action.payload;
+    },
   },
 });
 
-export const { setSortParam, setFilterParam } = filterSlice.actions;
+export const { setSortParam, setFilterParam, setSearchQuery } = filterSlice.actions;
 export default filterSlice.reducer;
