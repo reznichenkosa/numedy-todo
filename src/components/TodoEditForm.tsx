@@ -7,7 +7,7 @@ interface TodoEditFormProps {
   todo: Todo;
 }
 
-export type FormData = Omit<Todo, "id" | "createdAt" | "isCompleted" | "isDeleted">;
+export type FormData = Omit<Todo, "id" | "createdAt" | "isCompleted" | "isDeleted" | "isOpen">;
 
 const TodoEditForm: React.FC<TodoEditFormProps> = ({ todo }) => {
   const [formData, setFormData] = useState<FormData>({

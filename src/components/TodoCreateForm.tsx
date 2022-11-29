@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 interface TodoCreateFormProps {}
 
-export type FormData = Omit<Todo, "id" | "createdAt" | "isCompleted" | "isDeleted">;
+export type FormData = Omit<Todo, "id" | "createdAt" | "isCompleted" | "isDeleted" | "isOpen">;
 
 const intialFormData = { title: "", description: "", deadlineAt: "" };
 
@@ -29,6 +29,7 @@ const TodoCreateForm: React.FC<TodoCreateFormProps> = () => {
       deadlineAt: formData.deadlineAt,
       createdAt: new Date().toISOString(),
       isCompleted: false,
+      isOpen: true,
       isDeleted: false,
     };
 

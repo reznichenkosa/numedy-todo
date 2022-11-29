@@ -12,12 +12,14 @@ export const selectTodosByFilters = createSelector(
   [selectAllTodos, selectFilterParam, selectSearchQuery, selectSortParam, selectCurrentPage],
   (todos, filterParam, searchParam, sortParam, currentPage) => {
     todos = todos.filter((todo) => !todo.isDeleted);
+
     const filteredTodos = todos.filter((todo) => {
       if (filterParam === FilterParam.ShowActive) return !todo.isCompleted;
       if (filterParam === FilterParam.ShowAll) return todo;
       if (filterParam === FilterParam.ShowCompleted) return todo.isCompleted;
       return todo;
     });
+
     const todosWithSearchQuery = filteredTodos.filter(
       (todo) =>
         todo.title.toLowerCase().includes(searchParam.toLowerCase()) ||
@@ -58,7 +60,6 @@ export const selectTodosByFilters = createSelector(
         todosWithSearchQuery.sort((a, b) => b.title.localeCompare(a.title));
         break;
     }
-    console.log("test");
-    return todosWithSearchQuery.slice((currentPage - 1) * 15, (currentPage - 1) * 15 + 15);
+    return todosWithSearchQuery;
   }
 );

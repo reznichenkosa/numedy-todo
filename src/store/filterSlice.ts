@@ -22,6 +22,7 @@ type FilterState = {
   sort: SortParam;
   searchQuery: string;
   currentPage: number;
+  countPage: number;
 };
 
 const initialState: FilterState = {
@@ -29,6 +30,7 @@ const initialState: FilterState = {
   sort: SortParam.SortByCreatedAtDesc,
   searchQuery: "",
   currentPage: 1,
+  countPage: 1,
 };
 
 const filterSlice = createSlice({
@@ -47,8 +49,12 @@ const filterSlice = createSlice({
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
+    setCountPage(state, action: PayloadAction<number>) {
+      state.countPage = action.payload;
+    },
   },
 });
 
-export const { setSortParam, setFilterParam, setSearchQuery, setCurrentPage } = filterSlice.actions;
+export const { setSortParam, setFilterParam, setSearchQuery, setCurrentPage, setCountPage } =
+  filterSlice.actions;
 export default filterSlice.reducer;

@@ -6,7 +6,10 @@ const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
     <>
       <header className="h-16 bg-slate-800">
         <div className="container mx-auto h-full flex justify-between items-center text-white font-bold text-2xl">
-          <Link to="/" className="flex items-center gap-1">
+          <Link
+            to="/"
+            className="flex items-center gap-1  transition-all ease-in-out hover:text-purple-500"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -52,7 +55,7 @@ const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
         </div>
       </header>
       <main className="flex-1 overflow-y-scroll">
-        <div className="container h-full mx-auto">{children}</div>
+        <div className="container mx-auto">{children}</div>
       </main>
       <footer className="h-16 bg-slate-800 ">
         <div className="container mx-auto h-full flex justify-between items-center text-white text-md font-medium">

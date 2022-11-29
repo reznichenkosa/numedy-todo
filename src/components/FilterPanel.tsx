@@ -2,6 +2,7 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import {
   FilterParam,
+  setCurrentPage,
   setFilterParam,
   setSearchQuery,
   setSortParam,
@@ -14,14 +15,17 @@ const FilterPanel: React.FC = () => {
 
   const changeFilterHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setFilterParam(e.target.value as FilterParam));
+    dispatch(setCurrentPage(1));
   };
 
   const changeSortHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setSortParam(e.target.value as SortParam));
+    dispatch(setCurrentPage(1));
   };
 
   const changeSearchQueryHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchQuery(e.target.value));
+    dispatch(setCurrentPage(1));
   };
 
   return (

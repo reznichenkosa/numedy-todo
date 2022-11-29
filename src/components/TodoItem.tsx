@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { compareStringDate, formatDateString } from "../helpers/date-helper";
 import { Todo } from "../store/todoSlice";
 import CustomCheckbox from "./UI/CustomCheckbox/CustomCheckbox";
@@ -9,15 +9,15 @@ interface TodoItemProps {
   todo: Todo;
   toggleCompleteHandler: (todo: Todo) => void;
   sendToBinHandler: (todo: Todo) => void;
+  toggleOpenHandler: (todo: Todo) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleCompleteHandler, sendToBinHandler }) => {
-  const [isShowContent, setIsShowContent] = useState<boolean>(true);
-
-  const toggleShowContent = () => {
-    setIsShowContent((value) => !value);
-  };
-
+const TodoItem: React.FC<TodoItemProps> = ({
+  todo,
+  toggleCompleteHandler,
+  sendToBinHandler,
+  toggleOpenHandler,
+}) => {
   return (
     <div className="w-full bg-slate-800 rounded-xl p-3 flex flex-col">
       <div className="flex gap-2 justify-between w-full items-center">
@@ -43,14 +43,17 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleCompleteHandler, sendTo
             </svg>
           </span>
         )}
-        <button onClick={toggleShowContent} className="flex justify-center items-center">
+        <button
+          onClick={() => toggleOpenHandler(todo)}
+          className="flex justify-center items-center"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={2}
             stroke="currentColor"
-            className={cn("w-6 h-6 transition-all ease-in-out", { "rotate-180": !isShowContent })}
+            className={cn("w-6 h-6 transition-all ease-in-out", { "rotate-180": !todo.isOpen })}
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
           </svg>
@@ -59,7 +62,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleCompleteHandler, sendTo
       <div
         className={cn(
           "transition-all ease-in-out overflow-hidden flex flex-col gap-3",
-          isShowContent ? "max-h-96 opacity-100 pt-4" : "max-h-0 opacity-0"
+          todo.isOpen ? "max-h-96 opacity-100 pt-4" : "max-h-0 opacity-0"
         )}
       >
         <div className="text-slate-400">{todo.description}</div>
