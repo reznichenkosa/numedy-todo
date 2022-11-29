@@ -5,3 +5,7 @@
 .custom-checkbox:checked ~ .check {
   @apply opacity-100;
 }
+
+.custom-checkbox:disabled {
+  @apply saturate-0
+}

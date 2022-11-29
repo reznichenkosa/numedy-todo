@@ -1,10 +1,11 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import { selectTodosByFilters } from "../store/selectors";
 import { sendToBin, Todo, toggleComplete } from "../store/todoSlice";
 import TodoItem from "./TodoItem";
 
 const TodoList: React.FC = () => {
-  const todos = useAppSelector((state) => state.todo.entities.filter((todo) => !todo.isDeleted));
+  const todos = useAppSelector(selectTodosByFilters);
   const dispatch = useAppDispatch();
 
   const toggleCompleteHandler = (todo: Todo) => {
@@ -27,6 +28,7 @@ const TodoList: React.FC = () => {
           sendToBinHandler={sendToBinHandler}
         />
       ))}
+      {todos.length === 0 && <div className="text-center">Нет задач</div>}
     </div>
   );
 };

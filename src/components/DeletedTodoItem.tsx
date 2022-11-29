@@ -1,67 +1,29 @@
-import React, { useState } from "react";
-import { compareStringDate, formatDateString } from "../helpers/date-helper";
+import React from "react";
+import { formatDateString } from "../helpers/date-helper";
 import { Todo } from "../store/todoSlice";
 import CustomCheckbox from "./UI/CustomCheckbox/CustomCheckbox";
 import cn from "classnames";
-import { Link } from "react-router-dom";
 
-interface TodoItemProps {
+interface DeletedTodoItemProps {
   todo: Todo;
-  toggleCompleteHandler: (todo: Todo) => void;
-  sendToBinHandler: (todo: Todo) => void;
+  restoreFromBinHandler: (todo: Todo) => void;
+  removeTodoFromBinHandler: (todo: Todo) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleCompleteHandler, sendToBinHandler }) => {
-  const [isShowContent, setIsShowContent] = useState<boolean>(true);
-
-  const toggleShowContent = () => {
-    setIsShowContent((value) => !value);
-  };
-
+const DeletedTodoItem: React.FC<DeletedTodoItemProps> = ({
+  todo,
+  restoreFromBinHandler,
+  removeTodoFromBinHandler,
+}) => {
   return (
     <div className="w-full bg-slate-800 rounded-xl p-3 flex flex-col">
       <div className="flex gap-2 justify-between w-full items-center">
-        <CustomCheckbox onChange={() => toggleCompleteHandler(todo)} checked={todo.isCompleted} />
+        <CustomCheckbox disabled checked={todo.isCompleted} />
         <span className={cn("flex-1", { "line-through text-slate-500": todo.isCompleted })}>
           {todo.title}
         </span>
-        {compareStringDate(todo.deadlineAt, new Date()) && !todo.isCompleted && (
-          <span className="text-red-500">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-6 h-6 animate-pulse"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-              />
-            </svg>
-          </span>
-        )}
-        <button onClick={toggleShowContent} className="flex justify-center items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className={cn("w-6 h-6 transition-all ease-in-out", { "rotate-180": !isShowContent })}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-          </svg>
-        </button>
       </div>
-      <div
-        className={cn(
-          "transition-all ease-in-out overflow-hidden flex flex-col gap-3",
-          isShowContent ? "max-h-96 opacity-100 pt-4" : "max-h-0 opacity-0"
-        )}
-      >
+      <div className="transition-all ease-in-out overflow-hidden flex flex-col gap-3 max-h-96 opacity-100 pt-4">
         <div className="text-slate-400">{todo.description}</div>
         <div className="flex justify-between gap-4 text-slate-400 flex-wrap">
           <div className="flex gap-4 items-end flex-1">
@@ -100,28 +62,28 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleCompleteHandler, sendTo
               {formatDateString(todo.deadlineAt)}
             </div>
           </div>
-          <Link
-            to={`/edit/${todo.id}`}
-            className="flex items-center gap-1 border-2 px-2 py-1 rounded-lg border-purple-500 text-purple-500 hover:bg-purple-500 transition-all ease-in-out hover:text-slate-50"
+          <button
+            onClick={() => restoreFromBinHandler(todo)}
+            className="flex items-center gap-1 border-2 px-2 py-1 rounded-lg border-green-400 text-green-400 hover:bg-green-400 transition-all ease-in-out hover:text-slate-50"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth={1.5}
+              strokeWidth={2.5}
               stroke="currentColor"
               className="w-5 h-5"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
               />
             </svg>
-            Редактировать
-          </Link>
+            Восстановить
+          </button>
           <button
-            onClick={() => sendToBinHandler(todo)}
+            onClick={() => removeTodoFromBinHandler(todo)}
             className="flex items-center gap-1 border-2 px-2 py-1 rounded-lg border-red-400 text-red-400 hover:bg-red-400 transition-all ease-in-out hover:text-slate-50"
           >
             <svg
@@ -146,4 +108,4 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleCompleteHandler, sendTo
   );
 };
 
-export default TodoItem;
+export default DeletedTodoItem;

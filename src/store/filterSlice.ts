@@ -21,12 +21,14 @@ type FilterState = {
   filter: FilterParam;
   sort: SortParam;
   searchQuery: string;
+  currentPage: number;
 };
 
 const initialState: FilterState = {
   filter: FilterParam.ShowAll,
   sort: SortParam.SortByCreatedAtDesc,
   searchQuery: "",
+  currentPage: 1,
 };
 
 const filterSlice = createSlice({
@@ -42,8 +44,11 @@ const filterSlice = createSlice({
     setSearchQuery(state, action: PayloadAction<string>) {
       state.searchQuery = action.payload;
     },
+    setCurrentPage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
+    },
   },
 });
 
-export const { setSortParam, setFilterParam, setSearchQuery } = filterSlice.actions;
+export const { setSortParam, setFilterParam, setSearchQuery, setCurrentPage } = filterSlice.actions;
 export default filterSlice.reducer;

@@ -5,7 +5,7 @@
 
 html,
 body {
-  @apply h-full bg-slate-900 text-slate-50
+  @apply h-full bg-slate-900 text-slate-50 overflow-hidden
 }
 
 #root {
