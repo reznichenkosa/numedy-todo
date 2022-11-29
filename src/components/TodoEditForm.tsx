@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAppDispatch } from "../hooks/redux-hooks";
 import { updateTodo, Todo } from "../store/todoSlice";
 import { useNavigate } from "react-router-dom";
+import { compareStringDate } from "../helpers/date-helper";
 
 interface TodoEditFormProps {
   todo: Todo;
@@ -25,7 +26,10 @@ const TodoEditForm: React.FC<TodoEditFormProps> = ({ todo }) => {
 
   const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if (compareStringDate(formData.deadlineAt, new Date())) {
+      alert("Дата завершения не может быть меньше даты редактирования!");
+      return;
+    }
     const updatedTodo: Todo = {
       ...todo,
       title: formData.title,

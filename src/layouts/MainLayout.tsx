@@ -1,11 +1,20 @@
 import React, { PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
 
-const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
+interface MainLayoutProps {
+  isSync: boolean;
+  delaySync: number | null;
+}
+
+const MainLayout: React.FC<PropsWithChildren<MainLayoutProps>> = ({
+  children,
+  isSync,
+  delaySync,
+}) => {
   return (
     <>
-      <header className="h-16 bg-slate-800">
-        <div className="container mx-auto h-full flex justify-between items-center text-white font-bold text-2xl">
+      <header className=" py-4 md:py-0 md:h-16 bg-slate-800">
+        <div className="container flex-col gap-3 md:flex-row mx-auto h-full flex items-center text-white font-bold text-2xl px-3 flex-wrap justify-center md:justify-between">
           <Link
             to="/"
             className="flex items-center gap-1  transition-all ease-in-out hover:text-purple-500"
@@ -27,7 +36,49 @@ const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
             Список задач
           </Link>
           <nav>
-            <ul>
+            <ul className="flex items-center gap-5">
+              {!delaySync && (
+                <li className="text-red-500">
+                  <span className="text-sm font-normal gap-1 flex items-center animate-pulse">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                      />
+                    </svg>
+                    Ошибка синхронизации!
+                  </span>
+                </li>
+              )}
+              <li>
+                {isSync && delaySync && (
+                  <span className="text-sm font-normal gap-1 flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6 animate-spin"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                      />
+                    </svg>
+                    Синхронизация...
+                  </span>
+                )}
+              </li>
               <li>
                 <Link
                   to="/bin"
@@ -54,11 +105,11 @@ const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
           </nav>
         </div>
       </header>
-      <main className="flex-1 overflow-y-scroll">
+      <main className="flex-1 overflow-y-scroll scrollbar-hide">
         <div className="container mx-auto">{children}</div>
       </main>
       <footer className="h-16 bg-slate-800 ">
-        <div className="container mx-auto h-full flex justify-between items-center text-white text-md font-medium">
+        <div className="container mx-auto h-full flex justify-between items-center text-white text-md font-medium px-3">
           <a
             href="https://github.com/reznichenkosa/"
             target="_blank"

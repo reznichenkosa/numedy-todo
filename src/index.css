@@ -12,3 +12,6 @@ body {
   @apply flex flex-col h-full
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

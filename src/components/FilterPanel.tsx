@@ -29,7 +29,7 @@ const FilterPanel: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-slate-800 rounded-xl p-3 flex justify-between">
+    <div className=" justify-center w-full bg-slate-800 rounded-xl p-3 flex flex-wrap gap-3 md:justify-between">
       <input
         onChange={changeSearchQueryHandler}
         value={searchQuery}
@@ -37,7 +37,7 @@ const FilterPanel: React.FC = () => {
         placeholder="Поиск"
         className="rounded-lg px-3 py-1 text-slate-100 bg-slate-900"
       />
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap justify-center">
         <select
           onChange={changeSortHandler}
           value={sort}

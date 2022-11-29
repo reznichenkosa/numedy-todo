@@ -66,8 +66,8 @@ const TodoItem: React.FC<TodoItemProps> = ({
         )}
       >
         <div className="text-slate-400">{todo.description}</div>
-        <div className="flex justify-between gap-4 text-slate-400 flex-wrap">
-          <div className="flex gap-4 items-end flex-1">
+        <div className="flex justify-between gap-4 text-slate-400 flex-wrap flex-col md:flex-row">
+          <div className="flex gap-4 items-end flex-1 flex-wrap">
             <div className="flex gap-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
           </div>
           <Link
             to={`/edit/${todo.id}`}
-            className="flex items-center gap-1 border-2 px-2 py-1 rounded-lg border-purple-500 text-purple-500 hover:bg-purple-500 transition-all ease-in-out hover:text-slate-50"
+            className="flex w-max items-center gap-1 border-2 px-2 py-1 rounded-lg border-purple-500 text-purple-500 hover:bg-purple-500 transition-all ease-in-out hover:text-slate-50"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +125,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
           </Link>
           <button
             onClick={() => sendToBinHandler(todo)}
-            className="flex items-center gap-1 border-2 px-2 py-1 rounded-lg border-red-400 text-red-400 hover:bg-red-400 transition-all ease-in-out hover:text-slate-50"
+            className="flex w-max items-center gap-1 border-2 px-2 py-1 rounded-lg border-red-400 text-red-400 hover:bg-red-400 transition-all ease-in-out hover:text-slate-50"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

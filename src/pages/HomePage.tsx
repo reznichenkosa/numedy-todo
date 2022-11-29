@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="mx-auto flex h-full justify-center py-5">
-      <div className="w-[800px] flex flex-col gap-4 items-center">
+      <div className="md:w-[800px] w-full flex flex-col gap-4 items-center px-2">
         <Link
           to="/create"
           className="flex gap-1 bg-purple-600 rounded-lg py-2 px-3 w-max hover:scale-105 transition-all ease-in-out"
@@ -38,7 +38,7 @@ const HomePage: React.FC = () => {
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
-          Создать задачу
+          Добавить задачу
         </Link>
         <FilterPanel />
         <TodoList />

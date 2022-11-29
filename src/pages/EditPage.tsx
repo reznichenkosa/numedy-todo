@@ -13,7 +13,7 @@ const EditPage = () => {
 
   return (
     <div className="container mx-auto flex h-full justify-center py-5 ">
-      <div className="w-[800px] flex flex-col gap-4 items-center">
+      <div className="md:w-[800px] w-full flex flex-col gap-4 items-center">
         <TodoEditForm todo={todo} />
       </div>
     </div>

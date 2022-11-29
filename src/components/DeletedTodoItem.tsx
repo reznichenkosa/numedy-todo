@@ -25,8 +25,8 @@ const DeletedTodoItem: React.FC<DeletedTodoItemProps> = ({
       </div>
       <div className="transition-all ease-in-out overflow-hidden flex flex-col gap-3 max-h-96 opacity-100 pt-4">
         <div className="text-slate-400">{todo.description}</div>
-        <div className="flex justify-between gap-4 text-slate-400 flex-wrap">
-          <div className="flex gap-4 items-end flex-1">
+        <div className="flex justify-between gap-4 text-slate-400 flex-wrap flex-col md:flex-row">
+          <div className="flex gap-4 items-end flex-1 flex-wrap">
             <div className="flex gap-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@ const DeletedTodoItem: React.FC<DeletedTodoItemProps> = ({
           </div>
           <button
             onClick={() => restoreFromBinHandler(todo)}
-            className="flex items-center gap-1 border-2 px-2 py-1 rounded-lg border-green-400 text-green-400 hover:bg-green-400 transition-all ease-in-out hover:text-slate-50"
+            className="flex w-max items-center gap-1 border-2 px-2 py-1 rounded-lg border-green-400 text-green-400 hover:bg-green-400 transition-all ease-in-out hover:text-slate-50"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +84,7 @@ const DeletedTodoItem: React.FC<DeletedTodoItemProps> = ({
           </button>
           <button
             onClick={() => removeTodoFromBinHandler(todo)}
-            className="flex items-center gap-1 border-2 px-2 py-1 rounded-lg border-red-400 text-red-400 hover:bg-red-400 transition-all ease-in-out hover:text-slate-50"
+            className="flex w-max items-center gap-1 border-2 px-2 py-1 rounded-lg border-red-400 text-red-400 hover:bg-red-400 transition-all ease-in-out hover:text-slate-50"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

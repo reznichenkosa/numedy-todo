@@ -3,6 +3,7 @@ import { useAppDispatch } from "../hooks/redux-hooks";
 import { addTodo, Todo } from "../store/todoSlice";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { compareStringDate } from "../helpers/date-helper";
 
 interface TodoCreateFormProps {}
 
@@ -21,7 +22,10 @@ const TodoCreateForm: React.FC<TodoCreateFormProps> = () => {
 
   const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if (compareStringDate(formData.deadlineAt, new Date())) {
+      alert("Дата завершения не может быть меньше даты создания!");
+      return;
+    }
     const newTodo: Todo = {
       id: uuidv4(),
       title: formData.title,

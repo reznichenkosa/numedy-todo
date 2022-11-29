@@ -5,8 +5,7 @@ export const formatDateString = (date: string): string => {
 };
 
 export const compareStringDate = (firstDate: string, secondDate: string | Date): boolean => {
-  if (typeof secondDate === "string") {
-    return new Date(firstDate) < new Date(secondDate);
-  }
-  return new Date(firstDate) < secondDate;
+  firstDate = new Date(firstDate).toISOString().slice(0, 10);
+  secondDate = new Date(secondDate).toISOString().slice(0, 10);
+  return new Date(firstDate) < new Date(secondDate);
 };
